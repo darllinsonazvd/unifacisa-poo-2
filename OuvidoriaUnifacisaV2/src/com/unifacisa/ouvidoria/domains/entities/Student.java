@@ -6,7 +6,7 @@ package com.unifacisa.ouvidoria.domains.entities;
  * @author Darllinson Azevedo
  */
 public class Student extends Person {
-    public Student(String name, String resgistry, String password) {
-        super(name, resgistry, password);
+    public Student(String name, String username, String password) {
+        super(name, username, password);
     }
 }

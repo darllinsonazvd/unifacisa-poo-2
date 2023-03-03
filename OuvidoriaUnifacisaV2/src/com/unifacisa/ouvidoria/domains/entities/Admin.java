@@ -6,8 +6,8 @@ package com.unifacisa.ouvidoria.domains.entities;
  * @author Darllinson Azevedo
  */
 public class Admin extends Person {
-    public Admin(String name, String resgistry, String password) {
-        super(name, resgistry, password);
+    public Admin(String name, String username, String password) {
+        super(name, username, password);
         this.setAdmin();
     }
 }

@@ -34,7 +34,7 @@ public class Main {
         };
         final List<String> OPTIONS_USER_LIST = Arrays.asList(OPTIONS_USER);
 
-        final Admin ADMIN = new Admin("Diego Braga", "ADM-01", "admestaonline");
+        final Admin ADMIN = new Admin("Diego Braga", "diegobraga", "admestaonline");
         Person.addPerson(ADMIN);
 
         Formatter.header("Bem-vindo ao Sistema de Ouvidoria da Unifacisa!", 100);

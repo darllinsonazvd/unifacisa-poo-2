@@ -13,7 +13,7 @@ import com.unifacisa.ouvidoria.utils.Validator;
  */
 public abstract class Auth {
     private static String name;
-    private static String registry;
+    private static String username;
     private static String password;
     public static boolean userIsAdmin = false;
     public static boolean userIsAuthenticated = false;
@@ -46,10 +46,12 @@ public abstract class Auth {
      */
     private static void register() {
         name = Validator.readString("\nDigite seu nome: ");
-        registry = Validator.readString("Digite sua matricula: ");
+        username = Validator.readString("Digite seu nome de usuario: ");
         password = Validator.readString("Digite sua senha: ");
 
-        Student user = new Student(name, registry, password);
+        String capitalizedName = name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+
+        Student user = new Student(capitalizedName, username, password);
         Formatter.successEmitter(Person.addPerson(user));
     }
 
@@ -61,15 +63,15 @@ public abstract class Auth {
     private static void login(Admin admin) {
         Formatter.header("Fazer login na plataforma", 100);
 
-        registry = Validator.readString("\nDigite sua matricula: ");
+        username = Validator.readString("\nDigite seu nome de usuario: ");
         password = Validator.readString("Digite sua senha: ");
 
-        userIsAdmin = registry.equals(admin.getRegistry());
+        userIsAdmin = username.equals(admin.getUsername());
 
-        userIsAuthenticated = Person.verifyLogin(registry, password);
+        userIsAuthenticated = Person.verifyLogin(username, password);
 
         if (userIsAuthenticated)
-            userLogged = Person.userAuthenticated(registry, password);
+            userLogged = Person.userAuthenticated(username, password);
     }
 
     /**

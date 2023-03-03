@@ -44,7 +44,7 @@ public abstract class Claims {
         }
 
         List<Feedback> userFeedbacks = listOfClaims.stream()
-                .filter(f -> f.getAuthor().getRegistry().equals(person.getRegistry()))
+                .filter(f -> f.getAuthor().getUsername().equals(person.getUsername()))
                 .toList();
 
         for (Feedback claim : userFeedbacks) {

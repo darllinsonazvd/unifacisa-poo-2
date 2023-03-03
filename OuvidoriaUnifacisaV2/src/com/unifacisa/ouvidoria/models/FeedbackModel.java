@@ -1,6 +1,5 @@
 package com.unifacisa.ouvidoria.models;
 
-import com.unifacisa.ouvidoria.domains.entities.Person;
 import com.unifacisa.ouvidoria.enums.FeedbackTypes;
 import com.unifacisa.ouvidoria.gateways.Feedback;
 

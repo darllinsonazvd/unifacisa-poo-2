@@ -44,7 +44,7 @@ public abstract class Compliments {
         }
 
         List<Feedback> userFeedbacks = listOfCompliments.stream()
-                .filter(f -> f.getAuthor().getRegistry().equals(person.getRegistry()))
+                .filter(f -> f.getAuthor().getUsername().equals(person.getUsername()))
                 .toList();
 
         for (Feedback compliment : userFeedbacks) {

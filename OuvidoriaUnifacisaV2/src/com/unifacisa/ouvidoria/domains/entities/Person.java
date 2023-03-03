@@ -14,14 +14,14 @@ public abstract class Person {
     private String name;
 
     private boolean isAdmin;
-    private String registry;
+    private String username;
     private String password;
 
     private static List<Person> listOfPersons = new ArrayList<Person>();
 
-    public Person(String name, String registry, String password) {
+    public Person(String name, String username, String password) {
         this.name = name;
-        this.registry = registry;
+        this.username = username;
         this.password = password;
     }
 
@@ -41,12 +41,12 @@ public abstract class Person {
         isAdmin = true;
     }
 
-    public String getRegistry() {
-        return registry;
+    public String getUsername() {
+        return username;
     }
 
-    public void setResgistry(String resgistry) {
-        this.registry = resgistry;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getPassword() {
@@ -80,10 +80,10 @@ public abstract class Person {
      * @author Darllinson Azevedo
      */
     public static String addPerson(Person userToRegister) {
-        String userRegistry = userToRegister.getRegistry();
+        String userRegistry = userToRegister.getUsername();
 
         for (Person person : listOfPersons) {
-            if (person.getRegistry().equals(userRegistry)) {
+            if (person.getUsername().equals(userRegistry)) {
                 return "Usuario ja existe na plataforma, faca seu login!";
             }
         }
@@ -95,34 +95,34 @@ public abstract class Person {
     /**
      * Verificar login do usuario
      *
-     * @param registry Matricula
+     * @param username Nome de usuário
      * @param password Senha
      * @return Se o dados estiverem coretos, retorna true, se não, retorna false
      * @author Darllinson Azevedo
      */
-    public static boolean verifyLogin(String registry, String password) {
+    public static boolean verifyLogin(String username, String password) {
         for (Person person : listOfPersons) {
-            if (person.getRegistry().equals(registry)
+            if (person.getUsername().equals(username)
                     && person.getPassword().equals(password)) {
                 Formatter.successEmitter("Logado na plataforma!");
                 return true;
             }
         }
 
-        Formatter.errorEmitter("Matricula ou senha invalidas");
+        Formatter.errorEmitter("Nome de usuario ou senha invalidas");
         return false;
     }
 
     /**
      * Recuperar usuário autenticado no sistema
      *
-     * @param registry Matrícula do usuário
+     * @param username Nome de usuário
      * @param password Senha do usuário
      * @return Usuário autenticado
      */
-    public static Person userAuthenticated(String registry, String password) {
+    public static Person userAuthenticated(String username, String password) {
         List<Person> userAuthenticated = listOfPersons.stream()
-                .filter(p -> p.getRegistry().equals(registry)
+                .filter(p -> p.getUsername().equals(username)
                         && p.getPassword().equals(password))
                 .toList();
 
@@ -132,7 +132,7 @@ public abstract class Person {
     @Override
     public String toString() {
         return "Nome: " + this.getName() + "\n" +
-                "Matricula: " + this.getRegistry() + "\n" +
+                "Matricula: " + this.getUsername() + "\n" +
                 "Eh admin: " + this.isAdmin();
     }
 }
