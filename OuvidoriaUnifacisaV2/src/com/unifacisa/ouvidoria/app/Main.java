@@ -34,7 +34,7 @@ public class Main {
         };
         final List<String> OPTIONS_USER_LIST = Arrays.asList(OPTIONS_USER);
 
-        final Admin ADMIN = new Admin("Diego Braga", "diegobraga", "admestaonline");
+        final Admin ADMIN = new Admin("Diego Braga", System.getenv("USERNAME_ADMIN"), System.getenv("PASSWORD_ADMIN"));
         Person.addPerson(ADMIN);
 
         while (running) {
