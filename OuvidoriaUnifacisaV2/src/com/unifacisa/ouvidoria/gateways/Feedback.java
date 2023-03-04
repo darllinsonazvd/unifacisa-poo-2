@@ -114,6 +114,8 @@ public class Feedback implements FeedbackModel {
     /**
      * Editar feedback
      *
+     * @author Darllinson Azevedo
+     *
      * @param id Id do feedback
      * @param type Tipo do feedback
      */

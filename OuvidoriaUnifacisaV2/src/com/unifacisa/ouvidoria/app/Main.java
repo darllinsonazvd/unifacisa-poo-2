@@ -10,7 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Main {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         Person userLogged;
         boolean userIsAdmin;
         boolean userIsAuthenticated;
@@ -37,9 +37,9 @@ public class Main {
         final Admin ADMIN = new Admin("Diego Braga", "diegobraga", "admestaonline");
         Person.addPerson(ADMIN);
 
-        Formatter.header("Bem-vindo ao Sistema de Ouvidoria da Unifacisa!", 100);
-
         while (running) {
+            Formatter.header("Bem-vindo ao Sistema de Ouvidoria da Unifacisa!", 100);
+
             Auth.authentication(ADMIN);
             userIsAuthenticated = Auth.userIsAuthenticated;
             userIsAdmin = Auth.userIsAdmin;
@@ -58,24 +58,18 @@ public class Main {
                     // Show all feedbacks
                     case 1 -> AppControls.getFeedbacksList(userLogged);
                     // Add feedback by category
-                    case 2 -> {
-                        AppControls.addFeedbackForm(userLogged);
-                    }
+                    case 2 -> AppControls.addFeedbackForm(userLogged);
                     /* Admin -> Delete feedback
                      User -> Edit yours feedbacks */
                     case 3 -> {
-                        if (userIsAdmin) {
-                            AppControls.deleteFeedbackForm(userLogged);
-                        } else {
-                            AppControls.editFeedbackForm(userLogged);
-                        }
+                        if (userIsAdmin) AppControls.deleteFeedbackForm(userLogged);
+                        else AppControls.editFeedbackForm(userLogged);
                     }
                     /* Admin -> Edit all users feedbacks
                      User -> Quit */
                     case 4 -> {
-                        if (userIsAdmin) {
-                            AppControls.editFeedbackForm(userLogged);
-                        } else {
+                        if (userIsAdmin) AppControls.editFeedbackForm(userLogged);
+                        else {
                             Formatter.header("Obrigado por utilizar o Sistema de Ouvidoria da Unifacisa!", 100);
                             userIsAuthenticated = false;
                             Auth.logout();
@@ -88,9 +82,7 @@ public class Main {
                             Formatter.header("Obrigado por utilizar o Sistema de Ouvidoria da Unifacisa!", 100);
                             userIsAuthenticated = false;
                             Auth.logout();
-                        } else {
-                            Formatter.errorEmitter("Opcao invalida!");
-                        }
+                        } else Formatter.errorEmitter("Opcao invalida!");
                     }
                     // Quit
                     default -> Formatter.errorEmitter("Opcao invalida!");

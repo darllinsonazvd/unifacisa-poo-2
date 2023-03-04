@@ -9,7 +9,7 @@ public enum FeedbackTypes {
     CLAIM, COMPLIMENT, IDEA, ALL;
 
     /**
-     * Traduzir tipos do feedback para PT-BR
+     * Traduzir tipos dos feedbacks para PT-BR
      *
      * @author Darllinson Azevedo
      *

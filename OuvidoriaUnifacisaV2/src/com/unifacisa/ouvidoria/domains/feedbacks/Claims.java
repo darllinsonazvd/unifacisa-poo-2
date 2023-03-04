@@ -63,6 +63,8 @@ public abstract class Claims {
     /**
      * Adicionar feedback do tipo "Reclamação" na lista de reclamações
      *
+     * @author Darllinson Azevedo
+     *
      * @param claim Reclamação para ser adicionada
      */
     public static void addClaim(Feedback claim) {
@@ -72,6 +74,8 @@ public abstract class Claims {
 
     /**
      * Excluir uma reclamação
+     *
+     * @author Darllinson Azevedo
      *
      * @param id Id da reclamação
      */
@@ -86,6 +90,8 @@ public abstract class Claims {
 
     /**
      * Editar uma reclamação
+     *
+     * @author Darllinson Azevedo
      *
      * @param id Id da reclamação
      */

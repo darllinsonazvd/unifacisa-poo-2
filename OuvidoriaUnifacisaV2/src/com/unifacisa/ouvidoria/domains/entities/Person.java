@@ -1,5 +1,6 @@
 package com.unifacisa.ouvidoria.domains.entities;
 
+import com.unifacisa.ouvidoria.security.PasswordEncrypt;
 import com.unifacisa.ouvidoria.utils.Formatter;
 
 import java.util.ArrayList;
@@ -60,8 +61,9 @@ public abstract class Person {
     /**
      * Recuperar lista de pessoas
      *
-     * @return Lista de pessoas
      * @author Darllinson Azevedo
+     *
+     * @return Lista de pessoas
      */
     public static String getListOfPersons() {
         String result = "";
@@ -76,15 +78,20 @@ public abstract class Person {
     /**
      * Adicionar pessoa na lista de pessoas
      *
-     * @param userToRegister Pessoa para ser adicionada
      * @author Darllinson Azevedo
+     *
+     * @param userToRegister Pessoa para ser adicionada
+     * @throws Exception Se algo der errado durante a criptografia
      */
-    public static String addPerson(Person userToRegister) {
-        String userRegistry = userToRegister.getUsername();
+    public static String addPerson(Person userToRegister) throws Exception {
+        String userUsername = userToRegister.getUsername();
+
+        String encryptUserPassword = PasswordEncrypt.encrypt(userToRegister.getPassword());
+        userToRegister.setPassword(encryptUserPassword);
 
         for (Person person : listOfPersons) {
-            if (person.getUsername().equals(userRegistry)) {
-                return "Usuario ja existe na plataforma, faca seu login!";
+            if (person.getUsername().equals(userUsername)) {
+                return "Ja existe um usuario com este nome de usuario!";
             }
         }
 
@@ -95,15 +102,19 @@ public abstract class Person {
     /**
      * Verificar login do usuario
      *
+     * @author Darllinson Azevedo
+     *
      * @param username Nome de usuário
      * @param password Senha
      * @return Se o dados estiverem coretos, retorna true, se não, retorna false
-     * @author Darllinson Azevedo
+     * @throws Exception Se algo der errado durante a descriptografia
      */
-    public static boolean verifyLogin(String username, String password) {
+    public static boolean verifyLogin(String username, String password) throws Exception {
         for (Person person : listOfPersons) {
+            String decryptedPassword = PasswordEncrypt.decrypt(person.getPassword());
+
             if (person.getUsername().equals(username)
-                    && person.getPassword().equals(password)) {
+                    && decryptedPassword.equals(password)) {
                 Formatter.successEmitter("Logado na plataforma!");
                 return true;
             }
@@ -116,14 +127,19 @@ public abstract class Person {
     /**
      * Recuperar usuário autenticado no sistema
      *
+     * @author Darllinson Azevedo
+     *
      * @param username Nome de usuário
      * @param password Senha do usuário
      * @return Usuário autenticado
+     * @throws Exception Se algo der errado durante a criptografia
      */
-    public static Person userAuthenticated(String username, String password) {
+    public static Person userAuthenticated(String username, String password) throws Exception {
+        String encryptUserPassword = PasswordEncrypt.encrypt(password);
+
         List<Person> userAuthenticated = listOfPersons.stream()
                 .filter(p -> p.getUsername().equals(username)
-                        && p.getPassword().equals(password))
+                        && p.getPassword().equals(encryptUserPassword))
                 .toList();
 
         return userAuthenticated.get(0);

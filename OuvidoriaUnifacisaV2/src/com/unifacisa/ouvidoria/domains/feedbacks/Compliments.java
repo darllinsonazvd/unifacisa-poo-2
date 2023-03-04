@@ -63,6 +63,8 @@ public abstract class Compliments {
     /**
      * Adicionar feedback do tipo "Elogio" na lista de elogios
      *
+     * @author Darllinson Azevedo
+     *
      * @param compliment Elogio para ser adicionado
      */
     public static void addCompliment(Feedback compliment) {
@@ -72,6 +74,8 @@ public abstract class Compliments {
 
     /**
      * Excluir um elogio
+     *
+     * @author Darllinson Azevedo
      *
      * @param id Id do elogio
      */
@@ -86,6 +90,8 @@ public abstract class Compliments {
 
     /**
      * Editar um elogio
+     *
+     * @author Darllinson Azevedo
      *
      * @param id Id do elogio
      */

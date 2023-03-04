@@ -63,6 +63,8 @@ public abstract class Ideas {
     /**
      * Adicionar feedback do tipo "Ideia" na lista de ideias
      *
+     * @author Darllinson Azevedo
+     *
      * @param idea Reclamação para ser adicionada
      */
     public static void addIdea(Feedback idea) {
@@ -72,6 +74,8 @@ public abstract class Ideas {
 
     /**
      * Excluir uma ideia
+     *
+     * @author Darllinson Azevedo
      *
      * @param id Id da ideia
      */
@@ -86,6 +90,8 @@ public abstract class Ideas {
 
     /**
      * Editar uma ideia
+     *
+     * @author Darllinson Azevedo
      *
      * @param id Id da ideia
      */
