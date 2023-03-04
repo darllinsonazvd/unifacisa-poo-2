@@ -15,8 +15,7 @@ import java.util.List;
  * @author Darllinson Azevedo
  */
 public abstract class AppControls {
-    static final String[] CATEGORIES = {"Reclamacao", "Elogio", "Ideia"};
-    static final List<String> CATEGORIES_LIST = Arrays.asList(CATEGORIES);
+    static final List<String> CATEGORIES = Arrays.asList("Reclamacao", "Elogio", "Ideia");
 
     /**
      * Recuperar feedbacks do usuário autenticado, se for admin, recupera todos os feedbacks
@@ -37,7 +36,7 @@ public abstract class AppControls {
      * @param userLogged Usuário autenticado
      */
     public static void addFeedbackForm(Person userLogged) {
-        Formatter.menu("Categorias:", CATEGORIES_LIST);
+        Formatter.menu("Categorias:", CATEGORIES);
 
         int optionToAdd = Validator.readInt("\nQual a categoria do feedback deseja adicionar? (1 / 2 / 3): ");
 
@@ -68,7 +67,7 @@ public abstract class AppControls {
      * @param userLogged Usuário autenticado
      */
     public static void deleteFeedbackForm(Person userLogged) {
-        Formatter.menu("Categorias:", CATEGORIES_LIST);
+        Formatter.menu("Categorias:", CATEGORIES);
         int optionToRemove = Validator.readInt("\nQual a categoria do feedback deseja remover? (1 / 2 / 3): ");
 
         switch (optionToRemove) {
@@ -105,7 +104,7 @@ public abstract class AppControls {
      * @param userLogged Usuário autenticado
      */
     public static void editFeedbackForm(Person userLogged) {
-        Formatter.menu("Categorias:", CATEGORIES_LIST);
+        Formatter.menu("Categorias:", CATEGORIES);
         int optionToEdit = Validator.readInt("\nQual a categoria do feedback deseja editar? (1 / 2 / 3): ");
 
         switch (optionToEdit) {

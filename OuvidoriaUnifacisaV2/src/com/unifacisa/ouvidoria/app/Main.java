@@ -17,22 +17,20 @@ public class Main {
 
         boolean running = true;
 
-        final String[] OPTIONS_ADMIN = {
+        final List<String> OPTIONS_ADMIN = Arrays.asList(
                 "Listar feedbacks",
                 "Adicionar feedback",
                 "Remover feedback",
                 "Editar feedback",
                 "Sair\n"
-        };
-        final List<String> OPTIONS_ADMIN_LIST = Arrays.asList(OPTIONS_ADMIN);
+        );
 
-        final String[] OPTIONS_USER = {
+        final List<String> OPTIONS_USER = Arrays.asList(
                 "Listar feedbacks",
                 "Adicionar feedback",
                 "Editar feedback",
                 "Sair\n"
-        };
-        final List<String> OPTIONS_USER_LIST = Arrays.asList(OPTIONS_USER);
+        );
 
         final Admin ADMIN = new Admin("Diego Braga", System.getenv("USERNAME_ADMIN"), System.getenv("PASSWORD_ADMIN"));
         Person.addPerson(ADMIN);
@@ -48,8 +46,8 @@ public class Main {
             while (userIsAuthenticated) {
                 Formatter.header("Bem-vindo(a) " + userLogged.getName(), 100);
                 Formatter.line(100);
-                if (userIsAdmin) Formatter.menu("Selecione uma opcao:", OPTIONS_ADMIN_LIST);
-                else Formatter.menu("Selecione uma opcao:", OPTIONS_USER_LIST);
+                if (userIsAdmin) Formatter.menu("Selecione uma opcao:", OPTIONS_ADMIN);
+                else Formatter.menu("Selecione uma opcao:", OPTIONS_USER);
                 Formatter.line(100);
 
                 int option = Validator.readInt("\nOpcao: ");
