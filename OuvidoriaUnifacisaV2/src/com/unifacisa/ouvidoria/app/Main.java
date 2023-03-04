@@ -84,7 +84,7 @@ public class Main {
                             Auth.logout();
                         } else Formatter.errorEmitter("Opcao invalida!");
                     }
-                    // Quit
+                    // Invalid option
                     default -> Formatter.errorEmitter("Opcao invalida!");
                 }
             }
