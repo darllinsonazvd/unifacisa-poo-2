@@ -4,6 +4,10 @@ import javax.crypto.*;
 import javax.crypto.spec.IvParameterSpec;
 import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
 import java.util.Arrays;
 import java.util.Base64;
 
@@ -40,15 +44,25 @@ public abstract class PasswordEncrypt {
      *
      * @param passwordToEncrypt Senha para ser criptografada
      * @return Senha criptografada
-     * @throws Exception Se algum parâmetro Base64 estiver incompatível
      */
-    public static String encrypt(String passwordToEncrypt) throws Exception {
-        byte[] decodedEncryptKey = Base64.getDecoder().decode(encryptKey);
+    public static String encrypt(String passwordToEncrypt) {
+        byte[] passwordEncrypted;
 
-        Cipher encryptCipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
-        SecretKeySpec key = new SecretKeySpec(Arrays.copyOf(decodedEncryptKey, 16), "AES");
-        encryptCipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8)));
-        byte[] passwordEncrypted = encryptCipher.doFinal(passwordToEncrypt.getBytes(StandardCharsets.UTF_8));
+        try {
+            byte[] decodedEncryptKey = Base64.getDecoder().decode(encryptKey);
+            Cipher encryptCipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
+            SecretKeySpec key = new SecretKeySpec(Arrays.copyOf(decodedEncryptKey, 16), "AES");
+            encryptCipher.init(Cipher.ENCRYPT_MODE, key, new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8)));
+            passwordEncrypted = encryptCipher.doFinal(passwordToEncrypt.getBytes(StandardCharsets.UTF_8));
+        } catch (NoSuchAlgorithmException
+                 | InvalidKeyException
+                 | NoSuchProviderException
+                 | NoSuchPaddingException
+                 | InvalidAlgorithmParameterException
+                 | IllegalBlockSizeException
+                 | BadPaddingException err) {
+            throw new RuntimeException(err);
+        }
 
         return Base64.getEncoder().encodeToString(passwordEncrypted);
     }
@@ -60,15 +74,26 @@ public abstract class PasswordEncrypt {
      *
      * @param passwordToDecrypt Senha para ser descriptografada
      * @return Senha descriptografada
-     * @throws Exception Se algum parâmetro Base64 estiver incompatível
      */
-    public static String decrypt(String passwordToDecrypt) throws Exception {
-        byte[] decodedEncryptKey = Base64.getDecoder().decode(encryptKey);
+    public static String decrypt(String passwordToDecrypt) {
+        byte[] passwordDecrypted;
 
-        Cipher decryptCipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
-        SecretKeySpec key = new SecretKeySpec(Arrays.copyOf(decodedEncryptKey, 16), "AES");
-        decryptCipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8)));
-        byte[] passwordDecrypted = decryptCipher.doFinal(Base64.getDecoder().decode(passwordToDecrypt));
+        try {
+            byte[] decodedEncryptKey = Base64.getDecoder().decode(encryptKey);
+            Cipher decryptCipher = Cipher.getInstance("AES/CBC/PKCS5Padding", "SunJCE");
+            SecretKeySpec key = new SecretKeySpec(Arrays.copyOf(decodedEncryptKey, 16), "AES");
+            decryptCipher.init(Cipher.DECRYPT_MODE, key, new IvParameterSpec(IV.getBytes(StandardCharsets.UTF_8)));
+            passwordDecrypted = decryptCipher.doFinal(Base64.getDecoder().decode(passwordToDecrypt));
+
+        } catch (NoSuchAlgorithmException
+                 | NoSuchProviderException
+                 | NoSuchPaddingException
+                 | InvalidKeyException
+                 | InvalidAlgorithmParameterException
+                 | IllegalBlockSizeException
+                 | BadPaddingException err) {
+            throw new RuntimeException(err);
+        }
 
         return new String(passwordDecrypted);
     }

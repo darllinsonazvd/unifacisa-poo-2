@@ -27,7 +27,7 @@ public abstract class Auth {
      * @param admin Usuário administrador do sistema para verificação de identidade
      * @throws Exception Se algo der errado durante o cadastro do usuário
      */
-    public static void authentication(Admin admin) throws Exception {
+    public static void authentication(Admin admin) {
         while (!userIsAuthenticated) {
             System.out.println("\nVoce possui cadastro na plataforma?\n");
             String answer = Validator.readString("s para Sim / qualquer coisa para Nao: ");
@@ -44,7 +44,7 @@ public abstract class Auth {
      *
      * @throws Exception Se algo der errado na autenticação do usuário
      */
-    private static void login(Admin admin) throws Exception {
+    private static void login(Admin admin) {
         Formatter.header("Fazer login na plataforma", 100);
 
         username = Validator.readString("\nDigite seu nome de usuario: ");
@@ -65,7 +65,7 @@ public abstract class Auth {
      *
      * @throws Exception Se algo der errado na criação do usuário
      */
-    private static void register() throws Exception {
+    private static void register() {
         name = Validator.readString("\nDigite seu nome: ");
         username = Validator.readString("Digite seu nome de usuario: ");
         password = Validator.readString("Digite sua senha: ");

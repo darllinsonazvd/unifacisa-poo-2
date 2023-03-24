@@ -2,6 +2,7 @@ package com.unifacisa.ouvidoria.security;
 
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
+import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.util.Base64;
 
@@ -17,16 +18,20 @@ public abstract class SecretKeyGenerator {
      * @author Aniket Kulkarni
      *
      * @return Chave de criptografia AES
-     * @throws Exception Se ocorrer algum erro durante a geração da chave
      */
-    public static String generateSecretKey() throws Exception {
+    public static String generateSecretKey() {
         final int KEY_BIT_SIZE = 256;
 
-        KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
-        SecureRandom secureRandom = new SecureRandom();
+        SecretKey secretKey;
 
-        keyGenerator.init(KEY_BIT_SIZE, secureRandom);
-        SecretKey secretKey = keyGenerator.generateKey();
+        try {
+            KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
+            SecureRandom secureRandom = new SecureRandom();
+            keyGenerator.init(KEY_BIT_SIZE, secureRandom);
+            secretKey = keyGenerator.generateKey();
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        }
 
         return Base64.getEncoder().encodeToString(secretKey.getEncoded());
     }

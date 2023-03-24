@@ -81,9 +81,8 @@ public abstract class Person {
      * @author Darllinson Azevedo
      *
      * @param userToRegister Pessoa para ser adicionada
-     * @throws Exception Se algo der errado durante a criptografia
      */
-    public static String addPerson(Person userToRegister) throws Exception {
+    public static String addPerson(Person userToRegister) {
         String userUsername = userToRegister.getUsername();
 
         String encryptUserPassword = PasswordEncrypt.encrypt(userToRegister.getPassword());
@@ -107,9 +106,8 @@ public abstract class Person {
      * @param username Nome de usuário
      * @param password Senha
      * @return Se o dados estiverem coretos, retorna true, se não, retorna false
-     * @throws Exception Se algo der errado durante a descriptografia
      */
-    public static boolean verifyLogin(String username, String password) throws Exception {
+    public static boolean verifyLogin(String username, String password) {
         for (Person person : listOfPersons) {
             String decryptedPassword = PasswordEncrypt.decrypt(person.getPassword());
 
@@ -132,9 +130,8 @@ public abstract class Person {
      * @param username Nome de usuário
      * @param password Senha do usuário
      * @return Usuário autenticado
-     * @throws Exception Se algo der errado durante a criptografia
      */
-    public static Person userAuthenticated(String username, String password) throws Exception {
+    public static Person userAuthenticated(String username, String password) {
         String encryptUserPassword = PasswordEncrypt.encrypt(password);
 
         List<Person> userAuthenticated = listOfPersons.stream()
